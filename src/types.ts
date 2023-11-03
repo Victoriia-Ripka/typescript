@@ -1,5 +1,5 @@
 let age: number
-let name: string
+let naame: string
 let toggle: boolean
 let empty: null
 let notInitialize: undefined
@@ -17,7 +17,7 @@ let literal: 'enable' | 'disable'
 
 
 age = 50;
-name = 'Max';
+naame = 'Max';
 toggle = true;
 empty = null;
 notInitialize = undefined;
@@ -32,12 +32,12 @@ union = 1
 union = 'string'
 
 
-function showMessage(message): void {
+function showMessage(message: string): void {
     console.log(message);
 }
   
   
-function calc(num1, num2): number {
+function calc(num1: number, num2: number): number {
     return num1 + num2;
 }
   
@@ -72,4 +72,16 @@ const page2: DataType = {
     likes: 5,
     accounts: ['Alex'],
     status: 'close',
+}
+
+
+
+
+
+const button2 = document.querySelector('button')! as HTMLButtonElement;
+
+if (button2) {
+  button2.addEventListener('click', () => {
+    console.log('Click');
+  });
 }
