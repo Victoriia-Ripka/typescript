@@ -9,3 +9,5 @@ function add(num1: number, num2: number) {
 button.addEventListener('click', () => {
     console.log(add(+input1.value, +input2.value))
 })
+
+let fruit: (ACTIVE: boolean, PASSIVE: boolean) => void
