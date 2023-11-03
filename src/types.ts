@@ -74,14 +74,3 @@ const page2: DataType = {
     status: 'close',
 }
 
-
-
-
-
-const button2 = document.querySelector('button')! as HTMLButtonElement;
-
-if (button2) {
-  button2.addEventListener('click', () => {
-    console.log('Click');
-  });
-}
