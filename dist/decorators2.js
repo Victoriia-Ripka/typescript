@@ -6,14 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 function ControllerDecoration(config) {
-    return function (constructor) {
-        const current = new constructor();
-        const getParent = document.getElementById(config.parent);
-        const createElement = document.createElement(config.template);
-        createElement.innerHTML = current.content;
-        constructor.prototype.element = createElement;
-        constructor.prototype.parent = getParent;
-        getParent === null || getParent === void 0 ? void 0 : getParent.appendChild(createElement);
+    return function (originalConstructor) {
+        return class extends originalConstructor {
+            constructor(...args) {
+                super(...args);
+                this.parent = document.getElementById(config.parent);
+                this.element = document.createElement(config.template);
+                this.element.innerHTML = this.content;
+                this.parent.append(this.element);
+            }
+        };
     };
 }
 let MyControllerTitle = class MyControllerTitle {
@@ -32,4 +34,37 @@ let MyControllerParagraph = class MyControllerParagraph {
 MyControllerParagraph = __decorate([
     ControllerDecoration({ parent: 'root', template: 'P' })
 ], MyControllerParagraph);
+const el1 = new MyControllerTitle();
+const el2 = new MyControllerParagraph();
+function ShowParams(target, name, descriptor) {
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+function AutoBind(_, _2, descriptor) {
+    const method = descriptor.value;
+    return {
+        configurable: true,
+        enumerable: false,
+        get() {
+            return method.bind(this);
+        }
+    };
+}
+class Notifier {
+    constructor() {
+        this.content = 'this message';
+    }
+    showMassage() {
+        console.log(this.content);
+    }
+}
+__decorate([
+    ShowParams,
+    AutoBind
+], Notifier.prototype, "showMassage", null);
+const notifier = new Notifier();
+const copyShowMessage = notifier.showMassage;
+notifier.showMassage();
+copyShowMessage();
 //# sourceMappingURL=decorators2.js.map
